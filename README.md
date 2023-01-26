@@ -1,5 +1,5 @@
 # Voting App
-Introducing my new project "Voting App" - the perfect solution for secure, easy and efficient voting. With our app, you can vote from anywhere, at any time, using your mobile device or computer. Our user-friendly interface makes it easy for you to cast your vote, and our state-of-the-art security measures ensure that your vote is protected and counted accurately. Whether you're voting in an election, a company poll, or a community survey, our app is the perfect choice. Try it out today and experience the convenience and power of online voting.
+Introducing my new project "Voting App" - the perfect solution for secure, easy and efficient voting. With our app, you can vote from anywhere, at any time, using your mobile device or computer. Our user-friendly interface makes it easy for you to cast your vote, and our state-of-the-art security measures ensure that your vote is protected and counted accurately. Try it out today and experience the convenience and power of online voting.
 
 
 ![Front Page](https://user-images.githubusercontent.com/50520333/214744944-c5c9ce21-fb2b-4427-9347-c0eb9d85e6b4.png)
@@ -22,8 +22,8 @@ Introducing my new project "Voting App" - the perfect solution for secure, easy 
 
 # Installation
 ```
-git clone 
-cd 
+git clone https://github.com/AlpetGexha/Voting-App.git
+cd Voting-App-master
 composer update
 npm install
 cp .env.example .env
