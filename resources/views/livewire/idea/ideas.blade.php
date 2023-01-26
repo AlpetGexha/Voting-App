@@ -38,37 +38,43 @@
         </div>
     </div> <!-- end filters -->
 
-    <div class="ideas-container space-y-6 my-8">
-        @forelse ($ideas as $idea)
-            <livewire:idea.index :key='$idea->id' :idea='$idea' :voteCount="$idea->votes_count" />
-        @empty
-            <div class="idea-container bg-white rounded-xl flex">
-                <div class="border-r border-gray-100 px-5 py-8">
-                    <div class="text-center border-2 border-gray-200 w-14 h-14 mx-auto rounded-xl">
-                        <svg class="w-6 h-6 text-gray-200 mx-auto" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                        </svg>
+    <div class="ideas-container space-y-6 my-8" wire:init='loadData'>
+        @if ($isReatyToLoad)
+
+            @forelse ($ideas as $idea)
+                <livewire:idea.index :key='$idea->id' :idea='$idea' :voteCount="$idea->votes_count" />
+            @empty
+                <div class="idea-container bg-white rounded-xl flex">
+                    <div class="border-r border-gray-100 px-5 py-8">
+                        <div class="text-center border-2 border-gray-200 w-14 h-14 mx-auto rounded-xl">
+                            <svg class="w-6 h-6 text-gray-200 mx-auto" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-between px-4 py-6">
+                        <h4 class="text-xl font-semibold mt-2">
+                            {{ __('No ideas found!') }}
+                        </h4>
+                        <div class="text-gray-600 mt-3">
+                            <p>
+                                {{ __('If you dont find an idea in the list, you can post one yourself.') }}
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="flex flex-col justify-between px-4 py-6">
-                    <h4 class="text-xl font-semibold mt-2">
-                        {{ __('No ideas found!') }}
-                    </h4>
-                    <div class="text-gray-600 mt-3">
-                        <p>
-                            {{ __('If you dont find an idea in the list, you can post one yourself.') }}
-                        </p>
-                    </div>
-                </div>
+            @endforelse
+            <div class="my-6">
+                {{ $ideas->links() }}
+                {{-- {{ $ideas->appends(quest()->query())->links() }} --}}
             </div>
-        @endforelse
-
-        <div class="my-6">
-            {{ $ideas->links() }}
-            {{-- {{ $ideas->appends(quest()->query())->links() }} --}}
-        </div>
-
+        @else
+            {{-- Skeleton Load --}}
+            @foreach (range(1, 3) as $index)
+                <x-skeleton-load />
+            @endforeach
+        @endif
     </div> <!-- end ideas-container -->
 </div>

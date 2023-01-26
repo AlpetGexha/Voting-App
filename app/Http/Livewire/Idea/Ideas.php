@@ -22,6 +22,13 @@ class Ideas extends Component
     // public $;
     public $search;
 
+    public $isReatyToLoad = false;
+
+    public function loadData()
+    {
+        $this->isReatyToLoad = true;
+    }
+
     protected $queryString = [
         'status' => ['except' => 'All'],
         'category' => ['except' => ''],
@@ -40,29 +47,35 @@ class Ideas extends Component
         //     return Status::select('name', 'id')->pluck('id', 'name');
         // });
 
-        $states = Status::select('name', 'id')->pluck('id', 'name');
+        $ideas = [];
+        $categorys = [];
+        
+        if ($this->isReatyToLoad) {
+            sleep(4);
+            $states = Status::select('name', 'id')->pluck('id', 'name');
 
-        $ideas = ModelsIdeas::query()
-            ->when(strlen($this->search) > 3, function ($query) {
-                return $query->where('title', 'like', ''.$this->search.'%');
-            })
-            ->when($this->status && $this->status !== 'All', function ($query) use ($states) {
-                return $query->where('status_id', $states->get($this->status));
-            })
-            ->when($this->category, function ($query) {
-                return $query->where('category_id', $this->category);
-            })
-            ->addVotedBy()
-            ->filterBy($this->filter)
-            ->with('user:id,name,profile_photo_path,is_verified', 'category:id,name', 'status')
-            ->withCount(['votes', 'comments', 'report', 'spams'])
-            ->orderByDesc('id')
-            ->fastPaginate(10)
-            ->withQueryString();
+                 $ideas = ModelsIdeas::query()
+                ->when(strlen($this->search) > 3, function ($query) {
+                    return $query->where('title', 'like', '' . $this->search . '%');
+                })
+                ->when($this->status && $this->status !== 'All', function ($query) use ($states) {
+                    return $query->where('status_id', $states->get($this->status));
+                })
+                ->when($this->category, function ($query) {
+                    return $query->where('category_id', $this->category);
+                })
+                ->addVotedBy()
+                ->filterBy($this->filter)
+                ->with('user:id,name,profile_photo_path,is_verified', 'category:id,name', 'status')
+                ->withCount(['votes', 'comments', 'report', 'spams'])
+                ->orderByDesc('id')
+                ->fastPaginate(10)
+                ->withQueryString();
 
-        $categorys = redisRememberForever('categorys.all', function () {
-            return  Categorie::toBase()->select('id', 'name')->get();
-        });
+            $categorys = redisRememberForever('categorys.all', function () {
+                return  Categorie::toBase()->select('id', 'name')->get();
+            });
+        }
 
         return view('livewire.idea.ideas', compact('ideas', 'categorys'));
     }
@@ -86,7 +99,7 @@ class Ideas extends Component
     public function updatedFilter()
     {
         if ($this->filter === 'myIdeas') {
-            if (! auth()->check()) {
+            if (!auth()->check()) {
                 return $this->redirectToLogin();
             }
         }

@@ -12,6 +12,7 @@ class Comments extends Component
 
     public $idea;
 
+    public $readyToLoad = false;
     protected $listeners = [
         'commentWasAdded' => '$refresh',
         'commentWasDeleted' => '$refresh',
@@ -22,7 +23,13 @@ class Comments extends Component
 
     public function mount(Ideas $idea)
     {
-        $this->idea = $idea;
+        if($this->readyToLoad)
+            $this->idea = $idea;
+    }
+
+    public function loadComments()
+    {
+        $this->readyToLoad = true;
     }
 
     // public function isUpdated(): bool
@@ -32,6 +39,11 @@ class Comments extends Component
 
     public function render()
     {
+
+        if (!$this->readyToLoad) {
+            $comments = [];
+        }
+
         $comments = $this->idea->comments()
             ->with('user.roles', 'status')
             ->isLikeByUser()
