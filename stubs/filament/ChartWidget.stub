@@ -1,0 +1,36 @@
+<?php
+
+namespace {{ namespace }};
+
+use Filament\Widgets\{{ chart }}Widget;
+
+class {{ class }} extends {{ chart }}Widget
+{
+    protected static ?string $heading = 'Chart';
+
+    public bool $readyToLoad = false;
+
+    public function loadData()
+    {
+        $this->readyToLoad = true;
+    }
+
+
+    protected function getData(): array
+    {
+        if (!$this->readyToLoad) {
+            $this->getSkeletonLoad();
+        }
+
+        return [
+            //
+        ];
+    }
+
+    private function getSkeletonLoad()
+    {
+        return [
+            //
+        ]
+    }
+}

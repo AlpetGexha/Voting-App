@@ -1,0 +1,30 @@
+<?php
+
+namespace {{ namespace }};
+
+use Filament\Widgets\StatsOverviewWidget as BaseWidget;
+use Filament\Widgets\StatsOverviewWidget\Card;
+
+class {{ class }} extends BaseWidget
+{
+    public bool $readyToLoad = false;
+
+    public function loadData()
+    {
+        $this->readyToLoad = true;
+    }
+
+    protected function getCards(): array
+    {
+
+        if (!$this->readyToLoad) {
+            return [
+                Card::make('Total ..', 'loading...'),
+                // Add all cart below with name of card and loading...
+            ];
+
+        return [
+            //
+        ];
+    }
+}

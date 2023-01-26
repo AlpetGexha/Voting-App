@@ -1,0 +1,115 @@
+{
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The Laravel Framework.",
+    "keywords": ["framework", "laravel"],
+    "license": "MIT",
+    "require": {
+        "php": "^8.0.2",
+        "3x1io/filament-commands": "^1.1",
+        "amvisor/filament-failed-jobs": "^0.6.1",
+        "artesaos/seotools": "^1.0",
+        "awcodes/filament-quick-create": "^1.2",
+        "awcodes/filament-sticky-header": "^1.2",
+        "bezhansalleh/filament-shield": "^2.3",
+        "cviebrock/eloquent-sluggable": "^9.0",
+        "doctrine/dbal": "^3.5",
+        "filament/filament": "^2.16",
+        "filament/notifications": "^2.16",
+        "filament/spatie-laravel-settings-plugin": "^2.16",
+        "filament/spatie-laravel-tags-plugin": "^2.16",
+        "flowframe/laravel-trend": "^0.1.1",
+        "guzzlehttp/guzzle": "^7.2",
+        "hammerstone/fast-paginate": "^0.1.11",
+        "laravel/framework": "^9.19",
+        "laravel/jetstream": "^2.13",
+        "laravel/sanctum": "^3.0",
+        "laravel/socialite": "^5.6",
+        "laravel/tinker": "^2.7",
+        "livewire/livewire": "^2.5",
+        "marjose123/filament-lockscreen": "^1.1",
+        "marjose123/filament-no-connection": "^1.0",
+        "mbarlow/megaphone": "^1.1",
+        "overtrue/laravel-like": "^5.0",
+        "owen-it/laravel-auditing": "^13.0",
+        "predis/predis": "^2.0",
+        "psr/simple-cache": "2.0",
+        "pxlrbt/filament-excel": "^1.1",
+        "pxlrbt/filament-spotlight": "^0.3.6",
+        "rappasoft/laravel-authentication-log": "^2.0",
+        "reworck/filament-settings": "^0.3.0",
+        "saadj55/filament-copyable": "^0.1.4",
+        "shuvroroy/filament-spatie-laravel-backup": "^1.2",
+        "shuvroroy/filament-spatie-laravel-health": "^1.6",
+        "spatie/cpu-load-health-check": "^1.0",
+        "spatie/laravel-honeypot": "^4.3",
+        "spatie/laravel-tags": "^4.3",
+        "spatie/security-advisories-health-check": "^1.0",
+        "stechstudio/filament-impersonate": "^2.11",
+        "tapp/filament-auditing": "^1.7",
+        "torann/geoip": "^3.0",
+        "ttungbmt/filament-ban": "^1.0",
+        "webbingbrasil/filament-advancedfilter": "^1.1",
+        "wireui/wireui": "^1.17",
+        "z3d0x/filament-logger": "^0.4.2"
+    },
+    "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
+        "barryvdh/laravel-ide-helper": "^2.12",
+        "beyondcode/laravel-query-detector": "^1.6",
+        "fakerphp/faker": "^1.9.1",
+        "glhd/laravel-dumper": "^1.0",
+        "laravel/pint": "^1.0",
+        "laravel/sail": "^1.0.1",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^6.1",
+        "phpunit/phpunit": "^9.5.10",
+        "spatie/laravel-ignition": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        },
+        "files":[
+            "app/Helpers/Helper.php",
+            "app/Helpers/Redis.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
