@@ -51,7 +51,7 @@ class Ideas extends Component
         $categorys = [];
         
         if ($this->isReatyToLoad) {
-            sleep(4);
+//             sleep(4);
             $states = Status::select('name', 'id')->pluck('id', 'name');
 
                  $ideas = ModelsIdeas::query()
