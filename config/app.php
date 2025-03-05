@@ -185,7 +185,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        // Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
 
         /*
