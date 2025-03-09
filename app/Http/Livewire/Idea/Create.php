@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Idea;
 use App\Models\Categorie;
 use App\Models\Ideas;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\RateLimiter;
 use Livewire\Component;
 use Spatie\Honeypot\Http\Livewire\Concerns\HoneypotData;
@@ -84,7 +85,7 @@ class Create extends Component
 
     public function render()
     {
-        $categories = redisGet('categorys.all', function () {
+        $categories = Cache::get('categorys.all', function () {
             return Categorie::toBase()->select('id', 'name')->get();
         });
 
