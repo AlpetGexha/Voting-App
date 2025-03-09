@@ -6,6 +6,7 @@ use App\Models\Categorie;
 use App\Models\Ideas as ModelsIdeas;
 use App\Models\Status;
 use App\Traits\WithAuthRedirects;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -49,12 +50,12 @@ class Ideas extends Component
 
         $ideas = [];
         $categorys = [];
-        
+
         if ($this->isReatyToLoad) {
-//             sleep(4);
+            //             sleep(4);
             $states = Status::select('name', 'id')->pluck('id', 'name');
 
-                 $ideas = ModelsIdeas::query()
+            $ideas = ModelsIdeas::query()
                 ->when(strlen($this->search) > 3, function ($query) {
                     return $query->where('title', 'like', '' . $this->search . '%');
                 })
@@ -72,7 +73,7 @@ class Ideas extends Component
                 ->fastPaginate(10)
                 ->withQueryString();
 
-            $categorys = redisRememberForever('categorys.all', function () {
+            $categorys = Cache::remember('categorys.all', 60 * 60 * 8, function () {
                 return  Categorie::toBase()->select('id', 'name')->get();
             });
         }

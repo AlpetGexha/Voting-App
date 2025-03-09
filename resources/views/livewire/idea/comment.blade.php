@@ -142,7 +142,7 @@
                     :model='$comment->getMorphClass()'
                     :model_id='$comment->id'
                     :likedBy='$comment->is_liked_by_user'
-                    count="{{ Redis::get('ideas.comments.like.' . $comment->id) ?? 0 }}" />
+                    count="{{ Cache::get('ideas.comments.like.' . $comment->id) ?? 0 }}" />
             </div>
 
         </div>

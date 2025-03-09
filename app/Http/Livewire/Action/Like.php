@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Action;
 
 use App\Traits\WithAuthRedirects;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Livewire\Component;
 
@@ -45,10 +46,10 @@ class Like extends Component
     {
         if (auth()->user()->hasLiked($model)) {
             auth()->user()->unlike($model);
-            Redis::decr('ideas.comments.like.'.$this->model_id);
+            Cache::decr('ideas.comments.like.'.$this->model_id);
         } else {
             auth()->user()->like($model);
-            Redis::incr('ideas.comments.like.'.$this->model_id);
+            Cache::incr('ideas.comments.like.'.$this->model_id);
         }
     }
 

@@ -5,6 +5,7 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Categorie extends Model
 {
@@ -48,7 +49,7 @@ class Categorie extends Model
         parent::boot();
 
         static::created(function ($categorie) {
-            redisForget('categorys.all');
+            Cache::forget('categorys.all');
         });
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ideas;
 use App\Models\Status;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use RateLimiter;
 
@@ -31,7 +32,7 @@ class IdeasController extends Controller
 
         if (RateLimiter::remaining('idea.'.$idea->id.request()->ip(), 1)) {
             RateLimiter::hit('idea.'.$idea->id.request()->ip());
-            Redis::incr('idea.visits.'.$idea->id);
+            Cache::incr('idea.visits.'.$idea->id);
         }
 
         // dd(Redis::get('idea.visits.' . $idea->id));
