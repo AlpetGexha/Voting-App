@@ -7,6 +7,7 @@ use App\Traits\Spam\Spamer;
 use App\Traits\Vote\Voter;
 use Cog\Contracts\Ban\Bannable as BannableContract;
 use Cog\Laravel\Ban\Traits\Bannable;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 // use Illuminate\Database\Query;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,7 +22,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements BannableContract, Auditable
+class User extends Authenticatable implements BannableContract, Auditable, FilamentUser
 {
     use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable, HasMegaphone, Voter, AuthenticationLoggable, HasRoles, Bannable, Spamer, Liker, AuditableTrait, Reporter;
 
@@ -134,5 +135,10 @@ class User extends Authenticatable implements BannableContract, Auditable
             .'?name='.$firstCharacter
             .'&color='.$color
             .'&background='.$bgColor;
+    }
+
+    public function canAccessFilament(): bool
+    {
+        return $this->hasRole(['super_admin', 'admin']);
     }
 }
